@@ -16,5 +16,57 @@
 1. Клонировать репозиторий:
 
 ```bash
-git clone https://github.com/yourusername/laravel-users-images.git
-cd laravel-users-images
+git clone git@github.com:strannik-mas/CGP-Systems_test.git
+cd CGP-Systems_test
+```
+2. Установить зависимости через Composer:
+
+```bash
+composer install
+```
+
+3. Создать файл `.env` на основе шаблона:
+
+```bash
+cp .env.example .env
+```
+4. Сгенерировать ключ приложения:
+
+```bash
+php artisan key:generate
+```
+5. Применить миграции и сиды:
+
+```bash
+php artisan migrate --seed
+```
+6. Создать символьную ссылку для хранения изображений:
+
+```bash
+php artisan storage:link
+```
+7. Запустить локальный сервер:  
+
+```bash
+php artisan serve
+```
+
+## Получение пользователей
+API для получения пользователей с подсчётом изображений доступен по адресу:
+
+```GET /api/users?page=1```
+---
+Параметр `page` используется для пагинации (50 пользователей на страницу).
+---
+Ответ содержит массив пользователей с полями `name`, `city`, `images_count`.
+
+## Создание пользователя
+API для создания пользователя с загрузкой изображений доступен по адресу:
+```POST /api/users```
+---
+Параметры запроса:
+- `name` (string, обязательный) - имя пользователя
+- `city` (string, обязательный) - город пользователя
+- `images[]` (file, необязательный) - массив изображений
+---
+Ответ содержит в случае успеха сообщение об успешном создании пользователя и статус success.
